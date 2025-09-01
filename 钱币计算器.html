@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>钱币计算器</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .description {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .money-groups {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .money-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .group-title {
+            font-size: 18px;
+            color: #3498db;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .input-group label {
+            width: 80px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .input-group input {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: right;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .total-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .total-label {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .total-amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: #27ae60;
+        }
+        
+        .currency {
+            font-size: 20px;
+            color: #27ae60;
+            margin-right: 5px;
+        }
+        
+        .reset-btn {
+            display: block;
+            margin: 30px auto 10px;
+            padding: 12px 25px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        @media (max-width: 600px) {
+            .money-groups {
+                flex-direction: column;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .input-group label {
+                margin-bottom: 5px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>钱币计算器</h1>
+        <p class="description">输入各种面额钱币的数量，自动计算总金额</p>
+        
+        <div class="money-groups">
+            <div class="money-group">
+                <h3 class="group-title">大面额纸币</h3>
+                <div class="input-group">
+                    <label for="hundred">100元：</label>
+                    <input type="number" id="hundred" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="fifty">50元：</label>
+                    <input type="number" id="fifty" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="twenty">20元：</label>
+                    <input type="number" id="twenty" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="ten">10元：</label>
+                    <input type="number" id="ten" min="0" value="0">
+                </div>
+            </div>
+            
+            <div class="money-group">
+                <h3 class="group-title">中小面额</h3>
+                <div class="input-group">
+                    <label for="five">5元：</label>
+                    <input type="number" id="five" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="two">2元：</label>
+                    <input type="number" id="two" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="one">1元：</label>
+                    <input type="number" id="one" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="half">0.5元：</label>
+                    <input type="number" id="half" min="0" value="0">
+                </div>
+            </div>
+            
+            <div class="money-group">
+                <h3 class="group-title">硬币</h3>
+                <div class="input-group">
+                    <label for="pointTwo">0.2元：</label>
+                    <input type="number" id="pointTwo" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="pointOne">0.1元：</label>
+                    <input type="number" id="pointOne" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="pointZeroFive">0.05元：</label>
+                    <input type="number" id="pointZeroFive" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="pointZeroTwo">0.02元：</label>
+                    <input type="number" id="pointZeroTwo" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="pointZeroOne">0.01元：</label>
+                    <input type="number" id="pointZeroOne" min="0" value="0">
+                </div>
+            </div>
+        </div>
+        
+        <div class="total-section">
+            <div class="total-label">总金额：</div>
+            <div class="total-amount"><span class="currency">¥</span><span id="total">0.00</span></div>
+        </div>
+        
+        <button class="reset-btn" onclick="resetAll()">重置所有输入</button>
+    </div>
+
+    <script>
+        // 获取所有输入框
+        const inputs = document.querySelectorAll('input[type="number"]');
+        
+        // 为每个输入框添加事件监听
+        inputs.forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+        
+        // 计算总金额
+        function calculateTotal() {
+            // 定义面额和对应的ID
+            const denominations = [
+                {id: 'hundred', value: 100},
+                {id: 'fifty', value: 50},
+                {id: 'twenty', value: 20},
+                {id: 'ten', value: 10},
+                {id: 'five', value: 5},
+                {id: 'two', value: 2},
+                {id: 'one', value: 1},
+                {id: 'half', value: 0.5},
+                {id: 'pointTwo', value: 0.2},
+                {id: 'pointOne', value: 0.1},
+                {id: 'pointZeroFive', value: 0.05},
+                {id: 'pointZeroTwo', value: 0.02},
+                {id: 'pointZeroOne', value: 0.01}
+            ];
+            
+            let total = 0;
+            
+            // 计算每种面额的总值并累加
+            denominations.forEach(denom => {
+                const input = document.getElementById(denom.id);
+                const count = parseFloat(input.value) || 0;
+                total += count * denom.value;
+            });
+            
+            // 更新总金额显示，保留两位小数
+            document.getElementById('total').textContent = total.toFixed(2);
+        }
+        
+        // 重置所有输入
+        function resetAll() {
+            inputs.forEach(input => {
+                input.value = '0';
+            });
+            calculateTotal();
+        }
+        
+        // 初始化计算
+        calculateTotal();
+    </script>
+</body>
+</html>
